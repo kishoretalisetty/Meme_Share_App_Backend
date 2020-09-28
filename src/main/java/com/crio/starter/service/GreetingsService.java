@@ -12,6 +12,6 @@ public class GreetingsService {
   private final GreetingsRepository greetingsRepository;
 
   public ResponseDto getMessage(String id) {
-    return new ResponseDto(greetingsRepository.findById(id).get().getMessage());
+    return new ResponseDto(greetingsRepository.findByExtId(id).getMessage());
   }
 }

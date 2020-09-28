@@ -7,13 +7,19 @@ FROM gradle:jdk11
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install git redis-server wget
-RUN wget https://repo.mongodb.org/apt/ubuntu/dists/bionic/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-server_4.2.1_amd64.deb -P /mongo-temp && cd /mongo-temp && apt-get install -y ./mongodb-org-server_4.2.1_amd64.deb && rm -rf /mongo-temp
+
+RUN apt-get install -y gnupg
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add -
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add -
+RUN echo "deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+RUN apt-get update
+RUN apt-get install -y mongodb-org
 
 USER root
 
 RUN mkdir code
 COPY . /code
 
-RUN cd /code && ./gradlew bootjar --stacktrace
+#RUN cd /code && ./gradlew bootjar
 
 CMD /code/start.sh

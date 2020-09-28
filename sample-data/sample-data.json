@@ -1,10 +1,10 @@
 [
   {
-    "id": "001",
+    "extId": "001",
     "message": "Hello world"
   },
   {
-    "id": "002",
+    "extId": "002",
     "message": "This is second message"
   }
 ]
