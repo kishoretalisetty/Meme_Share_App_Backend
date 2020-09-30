@@ -25,8 +25,8 @@ class GreetingsServiceTest {
   @Test
   void getMessage() {
     GreetingsEntity greetingsEntity = getGreeting("001", "Welcome");
-    Mockito.doReturn(Optional.of(greetingsEntity))
-        .when(greetingsRepository).findById("001");
+    Mockito.doReturn(greetingsEntity)
+        .when(greetingsRepository).findByExtId("001");
     ResponseDto responseDto = greetingsService.getMessage("001");
 
     ResponseDto expected = new ResponseDto("Welcome");
@@ -36,7 +36,7 @@ class GreetingsServiceTest {
 
   private GreetingsEntity getGreeting(String id, String message) {
     GreetingsEntity greetingsEntity = new GreetingsEntity();
-    greetingsEntity.setId(id);
+    greetingsEntity.setExtId(id);
     greetingsEntity.setMessage(message);
     return greetingsEntity;
   }

@@ -4,7 +4,7 @@
 
 FROM gradle:jdk11
 
-ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install git redis-server wget
 
@@ -20,6 +20,6 @@ USER root
 RUN mkdir code
 COPY . /code
 
-#RUN cd /code && ./gradlew bootjar
+RUN cd /code && ./gradlew bootjar
 
 CMD /code/start.sh
