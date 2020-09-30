@@ -1,7 +1,3 @@
-# IMPORTANT!
-# Image should be built on the context of `cloud-assessment` directory.
-# Command to be run in `cloud-assessment` dir - `docker build -t <image_name>:<tag> -f me_assessments/me_qeats_review/Dockerfile .
-
 FROM gradle:jdk11
 
 ARG DEBIAN_FRONTEND=noninteractive
