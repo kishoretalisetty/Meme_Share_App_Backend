@@ -37,12 +37,14 @@ dependencies {
 }
 
 spotbugsMain {
+    ignoreFailures = true
     reports {
         xml.enabled = false
         html.enabled = true
     }
 }
 spotbugsTest {
+    ignoreFailures = true
     reports {
         xml.enabled = false
         html.enabled = true
