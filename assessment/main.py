@@ -1,4 +1,3 @@
-import inspect
 import unittest
 from unittest import TestCase
 
@@ -7,7 +6,6 @@ import pytest
 import requests
 import json
 import logging
-import time
 import socket
 
 ## Global variables and functions
@@ -81,7 +79,8 @@ class ScoreGenerate(TestCase):
 
     def decode_and_load_json(self, response):
         try:
-            data = json.loads(response.content.decode('utf-8'))
+            text_response = response.content.decode('utf-8')
+            data = json.loads(text_response)
         except Exception as e:
             print("Except")
             logging.exception(str(e))
@@ -105,7 +104,7 @@ class ScoreGenerate(TestCase):
     @pytest.mark.order(2)
     def test_1_first_post_test(self):
         """Post first MEME and verify that it returns id in the response"""
-        endpoint = 'memes'
+        endpoint = 'memes/'
         body = {
             'name': 'crio-user',
             'caption': 'crio-meme',
