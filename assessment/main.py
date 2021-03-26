@@ -89,6 +89,7 @@ class ScoreGenerate(TestCase):
         return data
     ### Helper functions end here
 
+    @pytest.mark.order(1)
     def test_0_get_on_empty_db_test(self):
         """When run with empty database, get calls should return success, and response should be empty"""
         print("test_get_on_empty_db_test")
@@ -101,6 +102,7 @@ class ScoreGenerate(TestCase):
         self.assertEqual(response_length, 0)
 
     # First Post
+    @pytest.mark.order(2)
     def test_1_first_post_test(self):
         """Post first MEME and verify that it returns id in the response"""
         endpoint = 'memes'
@@ -117,6 +119,7 @@ class ScoreGenerate(TestCase):
         self.FIRST_POST_ID = data['id']
         print('Assigned successfully' + str(self.FIRST_POST_ID))
 
+    @pytest.mark.order(3)
     def test_2_get_single_meme(self):  # Score 6
         """Post a new MEME, capture its Id, and verify its GET /meme/{id} returns correct MEME"""
         endpoint = 'memes'
@@ -142,6 +145,7 @@ class ScoreGenerate(TestCase):
         self.assertEqual(data['url'], self.SAMPLE_URL + self.FIRST_POST)
 
 
+    @pytest.mark.order(4)
     def test_3_get_single_meme_non_existent_test(self):
         """Try to access MEME with some random id, and verify that it returns 404"""
         endpoint = 'memes/0909'
@@ -149,6 +153,7 @@ class ScoreGenerate(TestCase):
         print('Status code for non existent meme: ', response.status_code)
         self.assertIn(response.status_code, self.NEGATIVE_STATUS_CODES)
 
+    @pytest.mark.order(5)
     def test_4_post_duplicate_test(self):
         """Verify that posting duplicate MEME return 409"""
         endpoint = 'memes'
@@ -160,6 +165,7 @@ class ScoreGenerate(TestCase):
         response = self.post_api(endpoint, json.dumps(body))
         self.assertIn(response.status_code, self.NEGATIVE_STATUS_CODES)
 
+    @pytest.mark.order(6)
     def test_5_post_empty_test(self):
         """Verify that API doesnt accept empty data in POST call"""
         endpoint = 'memes'
@@ -168,6 +174,7 @@ class ScoreGenerate(TestCase):
         self.assertIn(response.status_code, self.NEGATIVE_STATUS_CODES)
 
 
+    @pytest.mark.order(7)
     def test_6_less_than_100_post_test(self):
         """Insert 50 MEMEs and try accessing them to confirm that all of them are returned back"""
         endpoint = 'memes/'
@@ -184,6 +191,7 @@ class ScoreGenerate(TestCase):
         data = self.decode_and_load_json(get_response)
         self.assertGreater(len(data), 50)
 
+    @pytest.mark.order(8)
     def test_7_more_than_100_post_test(self): # Score 5
         """Post more than 100 MEME, make a GET call and ensure that it returns only latest 100 MEME"""
         endpoint = 'memes'
