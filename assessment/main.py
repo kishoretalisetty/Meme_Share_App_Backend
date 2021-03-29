@@ -28,7 +28,7 @@ def check_server(address, port):
     finally:
         s.close()
 
-class ScoreGenerate(TestCase):
+class XMemeAssessment(TestCase):
 
     HEADERS = None
 
