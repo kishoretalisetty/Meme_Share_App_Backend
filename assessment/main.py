@@ -121,7 +121,7 @@ class XMemeAssessment(TestCase):
     @pytest.mark.run(order=3)
     def test_2_get_single_meme(self):  # Score 6
         """Post a new MEME, capture its Id, and verify its GET /meme/{id} returns correct MEME"""
-        endpoint = 'memes'
+        endpoint = 'memes/'
         body = {
             'name': 'crio-user' + "9999",
             'caption': 'crio-meme' + "9999",
@@ -155,7 +155,7 @@ class XMemeAssessment(TestCase):
     @pytest.mark.run(order=5)
     def test_4_post_duplicate_test(self):
         """Verify that posting duplicate MEME return 409"""
-        endpoint = 'memes'
+        endpoint = 'memes/'
         body = {
             'name': 'crio-user',
             'caption': 'crio-meme',
@@ -167,7 +167,7 @@ class XMemeAssessment(TestCase):
     @pytest.mark.run(order=6)
     def test_5_post_empty_test(self):
         """Verify that API doesnt accept empty data in POST call"""
-        endpoint = 'memes'
+        endpoint = 'memes/'
         body = {}
         response = self.post_api(endpoint, json.dumps(body))
         self.assertIn(response.status_code, self.NEGATIVE_STATUS_CODES)
@@ -193,7 +193,7 @@ class XMemeAssessment(TestCase):
     @pytest.mark.run(order=8)
     def test_7_more_than_100_post_test(self): # Score 5
         """Post more than 100 MEME, make a GET call and ensure that it returns only latest 100 MEME"""
-        endpoint = 'memes'
+        endpoint = 'memes/'
         for i in range(51, 104):
             body = {
                 'name': 'A' + str(i),
