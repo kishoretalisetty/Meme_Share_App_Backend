@@ -7,6 +7,7 @@ import requests
 import json
 import logging
 import socket
+import os
 
 ## Global variables and functions
 from pytest import fail
@@ -33,6 +34,7 @@ class XMemeAssessment(TestCase):
     HEADERS = None
 
     def __init__(self, *args, **kwargs):
+        os.system('mongo Xmeme --eval "db.dropDatabase()"')
         unittest.TestCase.__init__(self, *args, **kwargs)
         self.HEADERS = {"Content-Type": "application/json"} # "X-Firebase-Auth": "INTERNAL_IMPERSONATE_USER_" + str(user),
         self.localhost = 'http://localhost:8081/'
