@@ -28,13 +28,16 @@ def check_server(address, port):
         return False
     finally:
         s.close()
+        
+def clean_db():
+    os.system('mongo Xmeme --eval "db.dropDatabase()"')
 
 class XMemeAssessment(TestCase):
 
     HEADERS = None
 
     def __init__(self, *args, **kwargs):
-        os.system('mongo Xmeme --eval "db.dropDatabase()"')
+        # os.system('mongo Xmeme --eval "db.dropDatabase()"')
         unittest.TestCase.__init__(self, *args, **kwargs)
         self.HEADERS = {"Content-Type": "application/json"} # "X-Firebase-Auth": "INTERNAL_IMPERSONATE_USER_" + str(user),
         self.localhost = 'http://localhost:8081/'
@@ -89,6 +92,11 @@ class XMemeAssessment(TestCase):
             return response
         return data
     ### Helper functions end here
+
+    @pytest.fixture(scope="session", autouse=True)
+    def db_cleanup(self, request):
+        clean_db()
+        request.addfinalizer(clean_db)
 
     @pytest.mark.run(order=1)
     def test_0_get_on_empty_db_test(self):
