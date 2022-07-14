@@ -1,15 +1,15 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.0-M3'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
-    id 'com.github.spotbugs' version '4.5.0'
+    id 'com.github.spotbugs' version '4.7.1'
     id 'checkstyle'
     id 'jacoco'
 }
 
 group = 'com.crio'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 configurations {
     compileOnly {
@@ -24,17 +24,19 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-amqp'
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'mysql:mysql-connector-java'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
-    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.1'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    testImplementation 'com.h2database:h2:2.1.214'
+
+    implementation 'mysql:mysql-connector-java:8.0.29'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.1'
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.7.1'
+    testImplementation 'org.springframework.amqp:spring-rabbit-test:2.7.1'
 }
 
 // Helps faster load times in Crio workspace.
@@ -58,7 +60,7 @@ spotbugsTest {
 }
 
 jacoco {
-    toolVersion = "0.8.4"
+    toolVersion = "0.8.8"
 }
 
 jacocoTestReport {
