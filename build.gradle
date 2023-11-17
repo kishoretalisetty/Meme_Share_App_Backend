@@ -1,0 +1,78 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'java'
+    id 'com.github.spotbugs' version '4.7.1'
+    id 'checkstyle'
+    id 'jacoco'
+}
+
+group = 'com.crio'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-amqp:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.1'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    testImplementation 'com.h2database:h2:2.1.214'
+
+    implementation 'mysql:mysql-connector-java:8.0.29'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.1'
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.7.1'
+    testImplementation 'org.springframework.amqp:spring-rabbit-test:2.7.1'
+}
+
+// Helps faster load times in Crio workspace.
+allprojects {
+    buildDir = '/tmp/external_build'
+}
+
+spotbugsMain {
+    ignoreFailures = true
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+spotbugsTest {
+    ignoreFailures = true
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+    }
+}
+
+
+test {
+    useJUnitPlatform()
+    testLogging.events ("STANDARD_ERROR")
+    testLogging.events ("STANDARD_OUT")
+}
