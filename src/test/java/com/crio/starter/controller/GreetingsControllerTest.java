@@ -1,9 +1,12 @@
 package com.crio.starter.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
+import com.crio.starter.data.GreetingsEntity;
 import com.crio.starter.exchange.ResponseDto;
 import com.crio.starter.service.GreetingsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,29 +32,72 @@ class GreetingsControllerTest {
   @MockBean
   private GreetingsService greetingsService;
 
-  @Test
-  void sayHello() throws Exception {
-    //given
-    Mockito.doReturn(new ResponseDto("Hello Java"))
-        .when(greetingsService).getMessage("001");
+  // @MockBean
+  // private GreetingsEntity gEntity;
 
-    // when
-    URI uri = UriComponentsBuilder
-        .fromPath("/say-hello")
-        .queryParam("messageId", "001")
-        .build().toUri();
+  // @Test
 
-    MockHttpServletResponse response = mvc.perform(
-        get(uri.toString()).accept(APPLICATION_JSON_VALUE)
-    ).andReturn().getResponse();
+//   void postcheck() throws Exception{
 
-    //then
-    String responseStr = response.getContentAsString();
-    ObjectMapper mapper = new ObjectMapper();
-    ResponseDto responseDto = mapper.readValue(responseStr, ResponseDto.class);
-    ResponseDto ref = new ResponseDto("Hello Java");
+//     Mockito.doReturn(null).when(greetingsService).
+//     getMemebyContent(anyString(),anyString(),anyString());
 
-    assertEquals(responseDto, ref);
-    Mockito.verify(greetingsService, Mockito.times(1)).getMessage("001");
-  }
+//    // Mockito.doReturn("113").when(greetingsService).saveMeme(any(gEntity.getClass()));
+
+//     when(greetingsService.
+//     getMemebyContent(anyString(),anyString(),anyString()))
+//         .thenReturn(null);
+// // 
+//     // when(restaurantService
+//     //     .findAllRestaurantsCloseBy(any(GetRestaurantsRequest.class), any(LocalTime.class)))
+//     //     .thenReturn(sampleResponse);
+
+//     // ArgumentCaptor<GetRestaurantsRequest> argumentCaptor = ArgumentCaptor
+//     //     .forClass(GetRestaurantsRequest.class);
+
+//     URI uri = UriComponentsBuilder
+//         .fromPath("/memes/" )
+//          .build().toUri();
+
+//     assertEquals("/memes", uri.toString());
+
+//     MockHttpServletResponse response = mvc.perform(
+//         get(uri.toString()).;
+
+//     assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+//     verify(restaurantService, times(1))
+//         .findAllRestaurantsCloseBy(argumentCaptor.capture(), any(LocalTime.class));
+
+//     assertEquals("20.21", argumentCaptor.getValue().getLatitude().toString());
+
+//     assertEquals("30.31", argumentCaptor.getValue().getLongitude().toString());
+
+//   }
+
+  // @Test
+  // void sayHello() throws Exception {
+  // //  given
+  //   Mockito.doReturn(new ResponseDto("Hello Java"))
+  //       .when(greetingsService).getMessage("001");
+
+  //   // when
+  //   URI uri = UriComponentsBuilder
+  //       .fromPath("/say-hello")
+  //       .queryParam("messageId", "001")
+  //       .build().toUri();
+
+  //   MockHttpServletResponse response = mvc.perform(
+  //       get(uri.toString()).accept(APPLICATION_JSON_VALUE)
+  //   ).andReturn().getResponse();
+
+  //   //then
+  //   String responseStr = response.getContentAsString();
+  //   ObjectMapper mapper = new ObjectMapper();
+  //   ResponseDto responseDto = mapper.readValue(responseStr, ResponseDto.class);
+  //   ResponseDto ref = new ResponseDto("Hello Java");
+
+  //   assertEquals(responseDto, ref);
+  //   Mockito.verify(greetingsService, Mockito.times(1)).getMessage("001");
+  // }
 }

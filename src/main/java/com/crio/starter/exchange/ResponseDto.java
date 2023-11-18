@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class ResponseDto {
-
-  private String message;
+  private String id;
 }
